@@ -1,1 +1,16 @@
 <h3>This is the teams partial!</h3>
+
+
+  <table class="table table-striped">
+    <thead>
+      <th>Name</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="p in teams">
+        <td ng-bind="p.name"></td>
+        <td><button class="btn btn-danger">Remove team</button></td>
+      </tr>
+    </tbody>
+
+  </table>

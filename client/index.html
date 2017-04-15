@@ -14,14 +14,29 @@
       app.config(function($routeProvider){
         $routeProvider
         .when('/', {
-          templateUrl: 'partials/players.html'
+          templateUrl: 'partials/players.html',
+          controller: 'PlayersController'
         })
         .when('/teams', {
-          templateUrl: 'partials/teams.html'
+          templateUrl: 'partials/teams.html',
+          controller: 'TeamsController'
         })
         .otherwise({
           redirectTo:'/'
         })
+      })
+
+      app.controller('PlayersController', function($scope){
+        $scope.players = [{name: "Kermit"}, {name: "Miss Piggy"}, {name: "Gonzo"}];
+      })
+
+      app.controller('TeamsController', function($scope){
+        $scope.teams = [{name:"Bunglers"}, {name: "Klutzes"}]
+      })
+
+      app.controller('AssociationsController', function($scope){
+        $scope.teams = [{name:"Bunglers"}, {name: "Klutzes"}]
+        $scope.players = [{name: "Kermit"}, {name: "Miss Piggy"}, {name: "Gonzo"}];
       })
 
 
