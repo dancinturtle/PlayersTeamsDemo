@@ -26,8 +26,29 @@
         })
       })
 
-      app.controller('PlayersController', function($scope){
-        $scope.players = [{name: "Kermit"}, {name: "Miss Piggy"}, {name: "Gonzo"}];
+      app.factory('PlayerFactory', function(){
+
+        var players = [{name: "Kermit"}, {name: "Miss Piggy"}, {name: "Gonzo"}];
+        var factory = {};
+        // sharePlayers will deliver information that we want but place that information into the function that our controller wants
+        factory.sharePlayers = function(callback){
+
+          callback(players);
+        }
+
+
+        return factory;
+      })
+
+      app.controller('PlayersController', function($scope, PlayerFactory){
+        $scope.players = [];
+        (function getPlayers(){
+          // trying to get the information, and what do we want to do with it once we have it?
+          PlayerFactory.sharePlayers(function(data){
+            $scope.players = data
+          })
+        })();
+
       })
 
       app.controller('TeamsController', function($scope){
@@ -35,8 +56,7 @@
       })
 
       app.controller('AssociationsController', function($scope){
-        $scope.teams = [{name:"Bunglers"}, {name: "Klutzes"}]
-        $scope.players = [{name: "Kermit"}, {name: "Miss Piggy"}, {name: "Gonzo"}];
+
       })
 
 
