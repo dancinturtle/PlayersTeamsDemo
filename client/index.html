@@ -8,11 +8,51 @@
     <script src="angular/angular.js"></script>
     <script src="angular-route/angular-route.js"></script>
 
+    <script>
+      var app = angular.module('app', ['ngRoute']);
+
+      app.config(function($routeProvider){
+        $routeProvider
+        .when('/', {
+          templateUrl: 'partials/players.html'
+        })
+        .when('/teams', {
+          templateUrl: 'partials/teams.html'
+        })
+        .otherwise({
+          redirectTo:'/'
+        })
+      })
+
+
+
+
+    </script>
+
   </head>
   <body>
     <div class="container">
 
-      <h1>Hello world!</h1>
+      <h1>Players and teams!!</h1>
+
+      <!-- The middle of the document will change depending on user interaction -->
+      <div ng-view>
+
+
+
+
+
+
+
+      </div>
+
+
+
+
+
+      <h6>End of document</h6>
+
+
 
     </div>
   </body>
