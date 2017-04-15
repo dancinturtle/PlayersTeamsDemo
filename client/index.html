@@ -21,6 +21,10 @@
           templateUrl: 'partials/teams.html',
           controller: 'TeamsController'
         })
+        .when('/associations', {
+          templateUrl:'partials/associations.html',
+          controller: 'AssociationsController'
+        })
         .otherwise({
           redirectTo:'/'
         })
@@ -39,6 +43,14 @@
 
         return factory;
       })
+      app.factory('TeamFactory', function(){
+        var teams = [{name:"Bunglers"}, {name: "Klutzes"}];
+        var factory = {};
+        factory.shareTeams = function(callback){
+          callback(teams);
+        }
+        return factory;
+      })
 
       app.controller('PlayersController', function($scope, PlayerFactory){
         $scope.players = [];
@@ -51,11 +63,22 @@
 
       })
 
-      app.controller('TeamsController', function($scope){
-        $scope.teams = [{name:"Bunglers"}, {name: "Klutzes"}]
+      app.controller('TeamsController', function($scope, TeamFactory){
+        $scope.teams = [];
+        TeamFactory.shareTeams(function(data){
+          $scope.teams = data;
+        })
       })
 
-      app.controller('AssociationsController', function($scope){
+      app.controller('AssociationsController', function($scope, TeamFactory, PlayerFactory){
+        $scope.teams = [];
+        $scope.players = [];
+        PlayerFactory.sharePlayers(function(data){
+          $scope.players = data
+        })
+        TeamFactory.shareTeams(function(data){
+          $scope.teams = data;
+        })
 
       })
 
