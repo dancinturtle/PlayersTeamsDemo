@@ -39,6 +39,9 @@
 
           callback(players);
         }
+        factory.addPlayer = function(rookie){
+          players.push(rookie);
+        }
 
 
         return factory;
@@ -49,17 +52,27 @@
         factory.shareTeams = function(callback){
           callback(teams);
         }
+        factory.addTeam = function(newTeam){
+          teams.push(newTeam);
+        }
         return factory;
       })
 
       app.controller('PlayersController', function($scope, PlayerFactory){
-        $scope.players = [];
+        // $scope.players = [];
         (function getPlayers(){
           // trying to get the information, and what do we want to do with it once we have it?
           PlayerFactory.sharePlayers(function(data){
             $scope.players = data
+
+            // ARRAYS ARE PASSED BY REFERENCE!
           })
         })();
+        $scope.addPlayer = function(){
+          console.log($scope.newPlayer, "Controller knows all about your new player!")
+          PlayerFactory.addPlayer($scope.newPlayer);
+          $scope.newPlayer = {};
+        }
 
       })
 
@@ -68,6 +81,9 @@
         TeamFactory.shareTeams(function(data){
           $scope.teams = data;
         })
+        $scope.addTeam = function(){
+          TeamFactory.addTeam($scope.newTeam)
+        }
       })
 
       app.controller('AssociationsController', function($scope, TeamFactory, PlayerFactory){

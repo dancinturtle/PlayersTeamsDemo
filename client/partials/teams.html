@@ -1,6 +1,14 @@
 <h3>This is the teams partial!</h3>
 
 
+<form ng-submit="addTeam()">
+  <div class="form-group">
+    <label for="newteam">Team name:</label>
+    <input type="text" name="newteam" ng-model="newTeam.name" class='form-control'/>
+  </div>
+  <button type="submit" class="btn btn-primary">Make new player</button>
+</form>
+
   <table class="table table-striped">
     <thead>
       <th>Name</th>
