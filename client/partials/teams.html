@@ -17,7 +17,7 @@
     <tbody>
       <tr ng-repeat="p in teams">
         <td ng-bind="p.name"></td>
-        <td><button class="btn btn-danger">Remove team</button></td>
+        <td><button class="btn btn-danger" ng-click="removeTeam(p)">Remove team</button></td>
       </tr>
     </tbody>
 

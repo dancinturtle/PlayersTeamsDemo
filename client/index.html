@@ -42,6 +42,10 @@
         factory.addPlayer = function(rookie){
           players.push(rookie);
         }
+        factory.deletePlayer = function(doomed){
+          var index = players.indexOf(doomed);
+          players.splice(index, 1);
+        }
 
 
         return factory;
@@ -54,6 +58,9 @@
         }
         factory.addTeam = function(newTeam){
           teams.push(newTeam);
+        }
+        factory.removeTeam = function(doomed){
+          teams.splice(teams.indexOf(doomed), 1);
         }
         return factory;
       })
@@ -73,6 +80,10 @@
           PlayerFactory.addPlayer($scope.newPlayer);
           $scope.newPlayer = {};
         }
+        $scope.deletePlayer = function(doomed){
+          console.log(doomed)
+          PlayerFactory.deletePlayer(doomed);
+        }
 
       })
 
@@ -83,6 +94,10 @@
         })
         $scope.addTeam = function(){
           TeamFactory.addTeam($scope.newTeam)
+          $scope.newTeam = {};
+        }
+        $scope.removeTeam = function(doomed){
+          TeamFactory.removeTeam(doomed);
         }
       })
 
@@ -95,6 +110,15 @@
         TeamFactory.shareTeams(function(data){
           $scope.teams = data;
         })
+        $scope.makeAssociation = function(){
+
+          $scope.selectedPlayer.team = $scope.selectedTeam;
+          console.log($scope.selectedPlayer)
+        }
+        $scope.boot = function(doomed){
+          console.log("got the doomed player", doomed);
+          doomed.team = null;
+        }
 
       })
 
@@ -108,6 +132,11 @@
     <div class="container">
 
       <h1>Players and teams!!</h1>
+      <a href="#!">Players</a> |
+      <a href="#!/teams">Teams</a> |
+      <a href="#!/associations">Associations</a> 
+
+
 
       <!-- The middle of the document will change depending on user interaction -->
       <div ng-view>
